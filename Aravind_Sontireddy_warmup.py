@@ -120,6 +120,19 @@ def fibonacci_loop(n):
     return fib
 
 
+# function for problem 11
+def sum_game(value):
+    if value <= 0:
+        raise Exception("Value Should be Positive")
+    total = 0
+    while True:
+        num = float(input("Enter number\n"))
+        total = total + num
+        if total == value:
+            print("Sum of numbers equal to value")
+            break
+
+
 # function for problem 12
 def list_overlap(list1, list2):
     commonElements = []
@@ -160,8 +173,11 @@ print(print_odd_while(1, 3))  # returns [1]
 # call for problem 9
 print(fibonacci(10))  # returns 21
 
-# call fo problem 10
+# call for problem 10
 print(fibonacci_loop(10))  # returns ['0', '1', '1', '2', '3', '5', '8', '13', '21', '34']
+
+# call for problem 11
+sum_game(10)
 
 # call for problem 12
 print(list_overlap([1, 2, 3, 4], [1, 3]))  # returns [1,3]
