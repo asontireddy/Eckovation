@@ -53,6 +53,17 @@ def check_substring(string1, string2):
     return string2 in string1
 
 
+# function for problem 5
+def generate_substrings(string):
+    substrings = []
+    for i in range(len(string)):
+        for j in range(i + 1, len(string) + 1):
+            prospect = string[i:j]
+            if prospect not in substrings:
+                substrings.append(string[i:j])
+    return substrings
+
+
 # function for problem 6
 def greet_me(name):
     return "Hello, {}, how are you today?".format(name)
@@ -143,43 +154,59 @@ def list_overlap(list1, list2):
 
 
 # call for problem 1
+print('-' * 50 + 'PROBLEM 1' + '-' * 50)
 print(am_gm_hm(1, 4))  # returns (2.5, 2.0, 1.6)
 print(am_gm_hm(2, 0))  # returns (1.0, 0.0, None) as we can't compute harmonic mean if any one of the number is 0 so
 # returning None
 
 
 # call for problem2
+print('-' * 50 + 'PROBLEM 2' + '-' * 50)
 print(check_triangle_inequality(1, 4, 3))  # returns True(Triangle is inequality)
 print(check_triangle_inequality(1, 2, 3))  # returns True(Triangle is inequality)
 
 # call for problem 3
+print('-' * 50 + 'PROBLEM 3' + '-' * 50)
 print(calculate_sin(1, 3))  # returns 0.8416666666666667
 
 # call for problem 4
+print('-' * 50 + 'PROBLEM 4' + '-' * 50)
 print(check_substring("alchemy", "chem"))  # returns True
 print(check_substring("chemistry", "chem"))  # returns True
 print(check_substring("chemistry", "cem"))  # returns False
 
+
+# call for problem 5
+print('-' * 50 + 'PROBLEM 5' + '-' * 50)
+print(generate_substrings("alchemy"))
+
 # call for problem 6
+print('-' * 50 + 'PROBLEM 6' + '-' * 50)
 print(greet_me(input("Enter your name:\n")))
 
 # call for problem 7
+print('-' * 50 + 'PROBLEM 7' + '-' * 50)
 mean_calculator(float(input("Enter 1st number in float\n")), float(input("Enter 2nd number in float\n")))
 
 # call for problem 8
+print('-' * 50 + 'PROBLEM 8' + '-' * 50)
 print(print_odd_for(1, 8))  # returns [1, 3, 5, 7]
 print(print_odd_while(1, 3))  # returns [1]
 
 # call for problem 9
+print('-' * 50 + 'PROBLEM 9' + '-' * 50)
 print(fibonacci(10))  # returns 21
 
 # call for problem 10
+print('-' * 50 + 'PROBLEM 10' + '-' * 50)
 print(fibonacci_loop(10))  # returns ['0', '1', '1', '2', '3', '5', '8', '13', '21', '34']
 
 # call for problem 11
+print('-' * 50 + 'PROBLEM 11' + '-' * 50)
 sum_game(10)
 
 # call for problem 12
+print('-' * 50 + 'PROBLEM 12' + '-' * 50)
 print(list_overlap([1, 2, 3, 4], [1, 3]))  # returns [1,3]
 print(list_overlap(["a", "b", "c"], ["c"]))  # returns ['c']
 print(list_overlap(["a", "b", "c"], ["d"]))  # returns []
