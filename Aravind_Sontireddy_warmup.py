@@ -76,7 +76,7 @@ def mean_calculator(a, b):
     if int(a) == 0 or int(b) == 0:
         print("HM can't be computed")
     else:
-        hm = hm = 2 / ((1 / a) + (1 / b))
+        hm = 2 / ((1 / a) + (1 / b))
         print("HM is " + str(hm))
 
 
