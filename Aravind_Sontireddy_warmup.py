@@ -50,7 +50,7 @@ def calculate_sin(x, k):
 
 # function for problem 4
 def check_substring(string1, string2):
-    return string2 in string1
+    return string1.find(string2) != -1
 
 
 # function for problem 5
