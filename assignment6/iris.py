@@ -1,7 +1,9 @@
 import sklearn.datasets
 import numpy as np
 import matplotlib.pyplot as plt
-
+'''
+    ADDED PLOT SHOW METHOD IN LAST LINE
+'''
 dictionary = sklearn.datasets.load_iris()
 data_array = dictionary["data"]  # Shape  of array is (150 * 4)
 # shape of target is (150,) as this is one dimensional array with 150 values
@@ -48,6 +50,71 @@ def get_train_set_categories():
     return categories
 
 
+# Utility function to plot scatter graph for problem 3, 4, 5
+def plot_scatter(axis, x_data, y_data, xlabel, ylabel, title):
+    categories = np.array(get_train_set_categories())
+    color_map = np.array(['r', 'g', 'b'])
+    axis.scatter(x_data, y_data, c=color_map[categories])
+    axis.set_xlabel(xlabel)
+    axis.set_ylabel(ylabel)
+    axis.set_title(title)
+
+
+# Solution for Problem 3 for plotting column 0 vs column 1 of train data
+train_data = np.array(train_data)
+fig, axis1 = plt.subplots(1, 1)
+x_data = np.reshape(train_data[:, 0], (120,))
+y_data = np.reshape(train_data[:, 1], (120,))
+plot_scatter(axis1, x_data, y_data, "sepal length (cm)", "sepal width (cm)", "Sepal length vs Sepal Width")
+
+x_label_map = {0: "sepal length (cm)",
+               1: "sepal length (cm)",
+               2: "sepal length (cm)",
+               3: "sepal width (cm)",
+               4: "sepal width (cm)",
+               5: "petal length (cm)"}
+y_label_map = {0: "sepal width (cm)",
+               1: "petal length (cm)",
+               2: "petal width (cm)",
+               3: "petal length (cm)",
+               4: "petal width (cm)",
+               5: "petal width (cm)"}
+title_map = {0: "sepal length (cm) vs sepal width (cm)",
+             1: "sepal length (cm) vs petal length (cm)",
+             2: "sepal length (cm) vs petal width (cm)",
+             3: "sepal width (cm) vs petal length (cm)",
+             4: "sepal width (cm) vs petal width (cm)",
+             5: "petal length (cm) vs petal width (cm)"}
+
+# Solution for problem 4 for plotting 6 combinations in 6 different figures
+
+train_data_features = len(train_data[0])
+count = 0
+for i in range(train_data_features):
+    for j in range(i + 1, train_data_features):
+        fig, axis = plt.subplots()
+        x_data = np.reshape(train_data[:, i], (120,))
+        y_data = np.reshape(train_data[:, j], (120,))
+        plot_scatter(axis, x_data, y_data, x_label_map[count], y_label_map[count], title_map[count])
+        count += 1
+
+# Solution for problem 5 for plotting 6 combinations in same figure as subplots
+fig, axis = plt.subplots(3, 2)
+axis_l, axis_w = 0, 0
+count = 0
+for i in range(train_data_features):
+    for j in range(i + 1, train_data_features):
+        x_data = np.reshape(train_data[:, i], (120,))
+        y_data = np.reshape(train_data[:, j], (120,))
+        plot_scatter(axis[axis_l][axis_w], x_data, y_data, x_label_map[count], y_label_map[count], title_map[count])
+        if axis_w == (len(axis[0]) - 1):
+            axis_w = 0
+            axis_l += 1
+        else:
+            axis_w += 1
+        count += 1
+
+
 # Solution for problem 6
 def classify(train_data, test_data):
     predicted = []
@@ -56,7 +123,7 @@ def classify(train_data, test_data):
         for index, each in enumerate(train_data):
             distance = get_eucledian_distance(i, each)
             index_distance_dict[index] = distance
-        index_distance_dict = dict(sorted(index_distance_dict.items(), key= lambda item: item[1]))
+        index_distance_dict = dict(sorted(index_distance_dict.items(), key=lambda item: item[1]))
         train_set_list = list(index_distance_dict.keys())
         train_set_list = train_set_list[:30]
         train_set_targets = list(dictionary["target"])
@@ -76,39 +143,5 @@ total += predicted[10:19].count(1)
 total += predicted[20:29].count(2)
 
 print(f"Accuracy is {(total / len(test_data)) * 100}")
-
-
-# Utility function to plot scatter graph for problem 3, 4, 5
-def plot_scatter(axis, x_data, y_data, xlabel, ylabel, title):
-    categories = np.array(get_train_set_categories())
-    color_map = np.array(['r', 'g', 'b'])
-    axis.scatter(x_data, y_data, c=color_map[categories])
-    axis.set_xlabel(xlabel)
-    axis.set_ylabel(ylabel)
-    axis.set_title(title)
-
-
-# Solution for Problem 3 for plotting column 0 vs column 1 of train data
-train_data = np.array(train_data)
-fig, axis1 = plt.subplots(1, 1)
-x_data = np.reshape(train_data[:, 0], (120,))
-y_data = np.reshape(train_data[:, 1], (120,))
-plot_scatter(axis1, x_data, y_data, "sepal length (cm)", "sepal width (cm)", "Sepal length vs Sepal Width")
-
-# Solution for problem 4 for plotting 6 combinations in 6 different figures
-train_data_features = len(train_data[0])
-for i in range(train_data_features):
-    for j in range(i + 1, train_data_features):
-        fig, axis = plt.subplots()
-        x_data = np.reshape(train_data[:, i], (120,))
-        y_data = np.reshape(train_data[:, j], (120,))
-        plot_scatter(axis, x_data, y_data, "", "", "")
-
-# Solution for problem 5 for plotting 6 combinations in same figure as subplots
-fig, axis = plt.subplots(3, 2)
-for i in range(train_data_features):
-    for j in range(i + 1, train_data_features):
-        x_data = np.reshape(train_data[:, i], (120,))
-        y_data = np.reshape(train_data[:, j], (120,))
 
 plt.show()
